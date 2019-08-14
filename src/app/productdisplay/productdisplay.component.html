@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-body">
+    <p *ngFor="let alert of alerts">
+      <ngb-alert style="width: 300px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+    <div *ngFor="let cat of productList">
+      <h3 class="modal-header" style="color: cornflowerblue">{{cat.category}}</h3>
+      <table class="table table-bordered table-responsive" style="display: inline;margin-left: 5px;"
+             *ngFor="let prod of cat.display_list">
+        <tr>
+            <img src="{{prod.image_path}}" width="180px;" height="200px;"/>
+        </tr>
+        <tr>
+          <td>{{prod.name}}</td>
+        </tr>
+        <tr>
+          <td>Price: {{prod.unit_price}}</td>
+        </tr>
+        <tr>
+          <td>{{prod.description}}</td>
+        </tr>
+        <tr>
+          <td>{{prod.terms}}</td>
+        </tr>
+        <td>
+          <button type="button" class="btn btn-outline-success"
+                  (click)="onAddToCart(prod)"><b>Add to cart</b></button>
+        </td>
+      </table>
+    </div>
+  </div>
+</div>

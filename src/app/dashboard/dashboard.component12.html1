@@ -1,0 +1,183 @@
+<p>
+  Dashboard is working!
+</p>
+
+<div id="collapseExample" [ngbCollapse]="false">
+  <div class="card">
+    <ngb-tabset type="pills" >
+      <ng-template ngbTabTitle><b>Add Products</b> </ng-template>
+      <ng-template ngbTabContent>
+        <br>
+        <form [formGroup]="productForm">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+                <label style="color: lightseagreen;font-size: medium;" ><b>Seller Name-Id*:</b></label>
+              </div>
+              <div class="col-md-6">
+                {{sellerName}} -{{sellerId}}
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="address" style="color: lightseagreen;font-size: medium;" ><b>Billing Address*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="address" id="address" placeholder="Enter Billing Address" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['address'].valid
+                          && productForm.controls['address'].dirty">
+                    <span *ngIf="productForm.controls.address.errors.required">Billing address is Required.</span>
+                    <span *ngIf="productForm.controls.address.errors.minlength">Billing address minimum should be length of 10.</span>
+                    <span *ngIf="productForm.controls.address.errors.maxlength">Billing address maximum should be length of 50.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="name" style="color: lightseagreen;font-size: medium;" ><b>Product Name*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="name" id="name" placeholder="Enter Product Name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['name'].valid
+                      && productForm.controls['address'].dirty">
+                    <span *ngIf="productForm.controls.name.errors.required">Product Name is Required.</span>
+                    <span *ngIf="productForm.controls.name.errors.minlength">Product Name minimum should be length of 5.</span>
+                    <span *ngIf="productForm.controls.name.errors.maxlength">Product Name maximum should be length of 20.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="description" style="color: lightseagreen;font-size: medium;" ><b>Description*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="description" id="description" placeholder="Enter Description" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['description'].valid
+                      && productForm.controls['description'].dirty">
+                    <span *ngIf="productForm.controls.description.errors.required">Description is Required.</span>
+                    <span *ngIf="productForm.controls.description.errors.minlength">Description minimum should be length of 10.</span>
+                    <span *ngIf="productForm.controls.description.errors.maxlength">Description maximum should be length of 100.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="unitPrice" style="color: lightseagreen;font-size: medium;" ><b>Per Unit Price*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="unitPrice" id="unitPrice" placeholder="Enter Per Unit Price" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['unitPrice'].valid
+                      && productForm.controls['unitPrice'].dirty">
+                    <span *ngIf="productForm.controls.unitPrice.errors.required">Per Unit Price is Required.</span>
+                    <span *ngIf="productForm.controls.unitPrice.errors.unitPrice">Per Unit Price is not in correct pattern.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="category" style="color: lightseagreen;font-size: medium;" ><b>Category*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <select class="form-control" formControlName="category" id="category">
+                  <option [ngValue]="undefined">Select Category</option>
+                  <option>Cloths</option>
+                  <option>Electronic</option>
+                  <option>Food Items</option>
+                  <option>Beauty</option>
+                  <option>Shoes</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['category'].valid
+                      && productForm.controls['category'].dirty">
+                    <span *ngIf="productForm.controls.category.errors.required">Category is Required.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="quantity" style="color: lightseagreen;font-size: medium;" ><b>Available Quantity*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="quantity" id="quantity" placeholder="Enter Available Quantity" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['quantity'].valid
+                      && productForm.controls['quantity'].dirty">
+                    <span *ngIf="productForm.controls.quantity.errors.required">Available Quantity is Required.</span>
+                    <span *ngIf="productForm.controls.quantity.errors.min">Available Quantity should be grater than 1.</span>
+                  </span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="productImage" style="color: lightseagreen;font-size: medium;" ><b>Product Image*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <input type="file" formControlName="productImage" id="productImage" accept="image/*" (change)="onFileSelect($event.target.files)"
+                       class="form-control-file" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['productImage'].valid
+                      && productForm.controls['productImage'].dirty">
+                    <span *ngIf="productForm.controls.productImage.errors.required">Product Image is Required.</span>
+                  </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="terms" style="color: lightseagreen;font-size: medium;" ><b>Terms and Conditions*:</b></label>
+              </div>
+              <div class="col-md-6">
+                <textarea formControlName="terms" id="terms" rows="3" placeholder="Enter Terms and Conditions" class="form-control"></textarea>
+              </div>
+              <div class="col-md-4">
+                 <span style="font-weight: bold;color: red;" *ngIf="!productForm.controls['terms'].valid
+                      && productForm.controls['terms'].dirty">
+                    <span *ngIf="productForm.controls.terms.errors.required">Terms and Conditions are Required.</span>
+                  </span>
+              </div>
+            </div>
+            <button type="button" style="margin-left: 39%;" [disabled]="!productForm.valid" class="btn btn-outline-success"
+                    (click)="onSaveProduct()"><b>Save</b></button>
+          </div>
+        </form>
+        <p *ngFor="let alert of alerts">
+          <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+      </ng-template>
+    </ngb-tabset>
+    <ngb-tab title="Show All Products">
+      <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+          craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+          cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+          yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+          shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+          sint qui sapiente accusamus tattooed echo park.</p>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Update Products">
+      <ng-template ngbTabContent>
+        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+      </ng-template>
+    </ngb-tab>
+  </div>
+</div>

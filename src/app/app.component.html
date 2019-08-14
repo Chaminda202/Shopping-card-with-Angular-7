@@ -1,21 +1,245 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!--Navbar-->
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg ">
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" routerLink='/productdisplay'>
+      <img src="../assets/images/logo/images.png" height="60px" width="60px"/>
+    </a>
+    <!-- Navbar brand -->
+    <form class="form-inline my-2 my-lg-0 ml-auto">
+      <div class="md-form my-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" style="width: 600px">
+      </div>
+      <button class="btn btn-outline-white btn-sm my-0" type="submit">Search</button>
+    </form>
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" style="padding-left: 150px" id="basicExampleNav">
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item active"  *ngIf="!isLogin">
+          <a class="nav-link" (click)="open(content)">Login & Signup
+          </a>
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown" *ngIf="isLogin">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownUser" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false"><b>User Details</b></a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownUser">
+            <button class="dropdown-item" routerLink='/profile'>Profile</button>
+            <button class="dropdown-item" routerLink='/dashboard'>My Dashboard</button>
+            <button class="dropdown-item" (click)="logout()">Logout</button>
+          </div>
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button  class="btn btn-primary" routerLink='/mycart'>
+            <b>Cart </b> <span class="badge badge-light">{{cartItemCount}}</span>
+            <span class="sr-only">unread messages</span>
+          </button>
+        </li>
+      </ul>
+      <!-- Links -->
+    </div>
+    <!-- Collapsible content -->
+  </div>
+</nav>
+<!--Model code Start-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header" style="background: deepskyblue; font-size: xx-large">
+    <h4 class="modal-title" id="modal-basic-title">Registration & SignIn</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--Tab Code Start-->
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Login</b></ng-template>
+        <ng-template ngbTabContent>
+          <br/>
+          <form [formGroup]="loginForm">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="text" formControlName="name" class="form-control" placeholder="Username"
+                       aria-label="Username"
+                       aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2">*</span>
+                </div>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password"
+                       aria-label="Password" aria-describedby="basic-addon2">
+              </div>
+            </div>
+            <button type="button" style="margin-left: 39%;" [disabled]="!loginForm.valid"
+                    class="btn btn-outline-success" (click)="onLogin()"><b>Login</b></button>
+          </form>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Register</b></ng-template>
+        <ng-template ngbTabContent>
+          <br>
+          <form [formGroup]="registrationForm">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="name" style="color: lightseagreen;font-size: medium;"><b>User Name*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" formControlName="name" id="name" placeholder="User Name"
+                         class="form-control"
+                         aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['name'].valid && registrationForm.controls['name'].dirty">
+                    <span *ngIf="registrationForm.controls.name.errors.required">User name is Required.</span>
+                    <span *ngIf="registrationForm.controls.name.errors.minlength">User name minimum should be length of 3.</span>
+                    <span *ngIf="registrationForm.controls.name.errors.maxlength">User name maximum should be length of 50.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="password" style="color: lightseagreen;font-size: medium;"><b>Password*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="password" formControlName="password" id="password" placeholder="Password"
+                         class="form-control"
+                         aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;"
+                        *ngIf="!registrationForm.controls['password'].valid && registrationForm.controls['password'].dirty">
+                    <span *ngIf="registrationForm.controls.password.errors.required">User name is Required.</span>
+                    <span *ngIf="registrationForm.controls.password.errors.minlength">User name minimum should be length of 3.</span>
+                    <span *ngIf="registrationForm.controls.password.errors.maxlength">User name maximum should be length of 50.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="email" style="color: lightseagreen;font-size: medium;"><b>Email*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="email" formControlName="email" id="email" placeholder="Email" class="form-control"
+                         aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;"
+                        *ngIf="!registrationForm.controls['email'].valid && registrationForm.controls['email'].dirty">
+                    <span *ngIf="registrationForm.controls.email.errors.required">Email is Required.</span>
+                    <span *ngIf="registrationForm.controls.email.errors.email">Email is not in correct pattern.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="role" style="color: lightseagreen;font-size: medium;"><b>Role*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <select class="form-control" formControlName="role" id="role">
+                    <option [ngValue]="undefined">Select Role</option>
+                    <option>Customer</option>
+                    <option>Sellers</option>
+                   <!-- <option>Tech Support</option>
+                    <option>CSE</option>-->
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['role'].valid
+                    &&registrationForm.controls['role'].dirty && registrationForm.controls['role'].touched">
+                    <span *ngIf="registrationForm.controls.role.errors.required">Role is Required.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="phone" style="color: lightseagreen;font-size: medium;"><b>Phone No*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" formControlName="phone" id="phone" class="form-control"
+                         aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;"
+                        *ngIf="!registrationForm.controls['phone'].valid && registrationForm.controls['phone'].dirty">
+                    <span *ngIf="registrationForm.controls.phone.errors.required">Phone is Required.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="gender" style="color: lightseagreen;font-size: medium;"><b>Gender*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <select class="form-control" formControlName="gender" id="gender">
+                    <option [ngValue]="undefined">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['gender'].valid
+                    && registrationForm.controls['gender'].dirty && registrationForm.controls['gender'].touched">
+                    <span *ngIf="registrationForm.controls.gender.errors.required">Gender is Required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button type="button" style="margin-left: 39%;"
+                    class="btn btn-outline-success" [disabled]="!registrationForm.valid"
+                    (click)="onRegister()"><b>Register</b></button>
+          </form>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+  <div class="modal-footer">
+    <!--<div class="row">
+      <div class="col-md-10 offset-1">
+        <p *ngFor="let alert of alerts">
+          <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+      </div>
+    </div>-->
+    <p *ngFor="let alert of alerts">
+      <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+  </div>
+</ng-template>
+<!--Model code End-->
 
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
