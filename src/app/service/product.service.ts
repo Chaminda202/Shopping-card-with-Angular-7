@@ -13,7 +13,6 @@ export class ProductService {
   }
 
   saveProduct(request: ProductModel) {
-    console.log('call product service layer');
     const reqHeader = new HttpHeaders({Authorization: 'Bearer ' + this.authService.getToken()});
     reqHeader.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();

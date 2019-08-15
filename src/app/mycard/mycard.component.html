@@ -10,7 +10,8 @@
             <h1 style="color:chocolate">Items in your cart:<span
               style="margin-left: 5%;margin-right: 22%;color: greenyellow">
                     Total value is: {{allTotal}}</span>
-              <button class="btn btn-outline-success" (click)="acc.toggle('static-2')">CheckOut</button>
+              <button class="btn btn-outline-success" [disabled]="isDisabled"
+                      (click)="acc.toggle('static-2')">CheckOut</button>
             </h1>
             <table class="table table-bordered table-responsive table-hover">
               <thead class="thead-light">
@@ -54,16 +55,18 @@
         <div class="form-group">
           <div class="row">
             <div class="col-md-2">
-              <label for="name" style="color: lightseagreen;font-size: medium;"><b>Name*:</b></label>
+              <label for="name" style="color: lightseagreen;font-size: medium;"><b>name*:</b></label>
             </div>
             <div class="col-md-6">
               <input type="text" formControlName="name" id="name" placeholder="Enter Your Name"
                      class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="col-md-4">
-              <span style="font-weight: bold;color: red;" *ngIf="!deliveryForm.controls['address'].valid
-                          && deliveryForm.controls['address'].dirty">
-                <span *ngIf="deliveryForm.controls.address.errors.required">Name is Required.</span>
+              <span style="font-weight: bold;color: red;" *ngIf="!deliveryForm.controls['name'].valid
+                          && deliveryForm.controls['name'].dirty">
+                <span *ngIf="deliveryForm.controls.name.errors.required">Name is Required.</span>
+                <span *ngIf="deliveryForm.controls.name.errors.minlength">Name minimum should be length of 4.</span>
+                <span *ngIf="deliveryForm.controls.name.errors.maxlength">Name maximum should be length of 20.</span>
               </span>
             </div>
           </div>
@@ -80,6 +83,8 @@
               <span style="font-weight: bold;color: red;" *ngIf="!deliveryForm.controls['address'].valid
                           && deliveryForm.controls['address'].dirty">
                 <span *ngIf="deliveryForm.controls.address.errors.required">Delivery Address is Required.</span>
+                <span *ngIf="deliveryForm.controls.address.errors.minlength">Delivery Address minimum should be length of 10.</span>
+                <span *ngIf="deliveryForm.controls.address.errors.maxlength">Delivery Address maximum should be length of 100.</span>
               </span>
             </div>
           </div>
@@ -89,13 +94,14 @@
               <label for="email" style="color: lightseagreen;font-size: medium;"><b>Email Address*:</b></label>
             </div>
             <div class="col-md-6">
-              <input type="email" formControlName="email" id="email" placeholder="Enter Delivery Address"
+              <input type="email" formControlName="email" id="email" placeholder="Enter Email Address"
                      class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="col-md-4">
               <span style="font-weight: bold;color: red;" *ngIf="!deliveryForm.controls['email'].valid
                           && deliveryForm.controls['email'].dirty">
                 <span *ngIf="deliveryForm.controls.email.errors.required">Email Address is Required.</span>
+                <span *ngIf="deliveryForm.controls.email.errors.email">Email is not in correct pattern.</span>
               </span>
             </div>
           </div>
@@ -118,14 +124,15 @@
               <label style="color: lightseagreen;font-size: medium;" ><b>Total Amount To Pay:</b></label>
             </div>
             <div class="col-md-6">
-              {{allTotal}}
+              <input type="text" value="{{allTotal}}" disabled="true"
+                     class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             </div>
             <div class="col-md-4">
             </div>
           </div>
         </div>
-        <button type="button" style="margin-left: 39%;" [disabled]="!deliveryForm.valid" class="btn btn-outline-success"
-                (click)="acc.toggle('static-3')"><b>Proceed to pay</b></button>
+        <button type="button" style="margin-left: 39%;" class="btn btn-outline-success"
+                [disabled]="!deliveryForm.valid" (click)="acc.toggle('static-3')"><b>Proceed to pay</b></button>
       </form>
     </ng-template>
   </ngb-panel>
@@ -181,7 +188,8 @@
         </tr>
         <tr class="col-md-12">
           <td class="text-center">
-            <button type="button" class="btn btn-outline-success"><b>Confirm Order</b></button>
+            <button type="button" class="btn btn-outline-success" [disabled]="isDisabled"
+                    (click)="onConfirmOrder()"><b>Confirm Order</b></button>
           </td>
         </tr>
       </table>

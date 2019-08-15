@@ -4,7 +4,6 @@ import {ProductdisplayModel} from '../model/productdisplay.model';
 import {AlertModel} from '../model/alert.model';
 import {ProductRespnseModel} from '../model/productRespnse.model';
 import {SharedService} from '../service/shared.service';
-import {AuthService} from '../service/auth.service';
 
 @Component({
   selector: 'app-productdisplay',
@@ -17,10 +16,8 @@ export class ProductdisplayComponent implements OnInit {
   public alerts: Array<AlertModel> = [];
   productAddedToCart: ProductRespnseModel[];
   cartItemCount = 0;
-  //isDisabled = true;
 
-  constructor(private productService: ProductService, private sharedService: SharedService,
-              private authService: AuthService) {
+  constructor(private productService: ProductService, private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -32,7 +29,7 @@ export class ProductdisplayComponent implements OnInit {
           this.alerts.push({
             id: 1,
             type: 'danger',
-            message: 'Something went wrong while saving the product, Please try after sometime.'
+            message: 'Something went wrong while retrieving the product, Please try after sometime.'
           });
         },
         () => {
@@ -47,12 +44,6 @@ export class ProductdisplayComponent implements OnInit {
           }
         }
       );
-
-   /* if (this.authService.getUserDetails() !== null) {
-      if (this.authService.getUserDetails().role === 'Customer') {
-        this.isDisabled = false;
-      }
-    }*/
   }
 
   onAddToCart(prod: ProductRespnseModel) {

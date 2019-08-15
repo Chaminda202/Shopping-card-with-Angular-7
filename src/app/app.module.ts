@@ -14,6 +14,7 @@ import {ProductService} from './service/product.service';
 import {ProductdisplayComponent} from './productdisplay/productdisplay.component';
 import {SharedService} from './service/shared.service';
 import { MycardComponent } from './mycard/mycard.component';
+import {OrderDetailsService} from './service/orderDetails.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { MycardComponent } from './mycard/mycard.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthService, ProductService, SharedService],
+  providers: [AuthService, ProductService, SharedService, OrderDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

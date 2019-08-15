@@ -107,7 +107,8 @@ export class AppComponent implements OnInit {
             this.authService.storeUserDetails({
               name: this.globalResponse.DATA.name,
               user_id: this.globalResponse.DATA.user_id,
-              role: this.globalResponse.DATA.role
+              role: this.globalResponse.DATA.role,
+              email: this.globalResponse.DATA.email
             });
             this.alerts.push({
               id: 1,
